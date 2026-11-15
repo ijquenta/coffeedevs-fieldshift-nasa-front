@@ -18,7 +18,7 @@ function seedFor(request: WizardRequest) {
   return Math.abs(Math.round(lng * 1e4 + lat * 1e5 + request.areaHa * 17 + request.fechaSiembra.desde.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)));
 }
 function sample(seed: number, salt: number, min: number, max: number) {
-  const value = Math.sin(seed * 12.9898 + salt * 78.233) * 43758.5453;
+  const value = Math.sin(seed * 12.9898 + salt * 78.233) * 43758.5453; 
   return min + (value - Math.floor(value)) * (max - min);
 }
 function delay(ms: number, signal?: AbortSignal) {
