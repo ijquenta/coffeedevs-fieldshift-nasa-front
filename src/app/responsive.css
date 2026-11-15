@@ -1,0 +1,905 @@
+/* PWA controls and accessible sizing across the wizard. */
+.wizard-header-actions {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 10px;
+  min-width: 0;
+}
+
+.wizard-install-button {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 13px;
+  border: 1px solid rgba(201, 239, 129, .25);
+  border-radius: 999px;
+  background: rgba(201, 239, 129, .09);
+  color: #d8f3ae;
+  font-size: var(--font-button);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.wizard-install-button:hover {
+  background: rgba(201, 239, 129, .17);
+}
+
+.wizard-card-body h1 { font-size: var(--font-large); }
+.wizard-card-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.wizard-card-title-row h1 { margin: 0; }
+.wizard-card-back-button { display: inline-flex; flex: none; align-items: center; gap: 6px; margin-top: 4px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 9px; background: rgba(255,255,255,.04); color: var(--muted); cursor: pointer; }
+.wizard-card-back-button:hover { border-color: rgba(201,239,129,.35); color: var(--lime); }
+.wizard-map-toolbar-empty { min-height: 0; height: 0; padding: 0; border-bottom: 0; overflow: visible; position: relative; z-index: 5; }
+.wizard-map-toolbar-empty .wizard-map-tools { position: absolute; top: 12px; right: 12px; }
+.wizard-map-toolbar-empty .wizard-map-tools button {
+  border-color: rgba(255, 255, 255, .2);
+  background: rgba(5, 14, 22, .82);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, .3);
+  backdrop-filter: blur(8px);
+}
+.wizard-map-toolbar-empty .wizard-map-tools button:hover,
+.wizard-map-toolbar-empty .wizard-map-tools button.active {
+  border-color: rgba(201, 239, 129, .5);
+  background: rgba(19, 45, 39, .92);
+}
+.wizard-primary-button { min-height: 48px; }
+.wizard-load-row .wizard-primary-button { align-self: stretch; }
+.wizard-card-actions { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.wizard-card-actions .wizard-card-back-button { margin: 0; }
+.wizard-card-action-primary { flex: 1; }
+.wizard-card-intro { font-size: var(--font-large); }
+.wizard-card-body p,
+.wizard-card-body label,
+.wizard-card-body input,
+.wizard-card-body select,
+.wizard-card-body textarea,
+.wizard-card-body button { font-size: var(--font-control); }
+.wizard-card-body small,
+.wizard-card-body .wizard-card-kicker,
+.wizard-card-body .wizard-demo-note { font-size: var(--font-small); }
+.wizard-card-body strong,
+.wizard-card-body button,
+.wizard-card-body input,
+.wizard-card-body select,
+.wizard-card-body textarea,
+.wizard-card-body .wizard-recommend-option strong { font-size: var(--font-large); }
+.wizard-card-body small,
+.wizard-card-body em,
+.wizard-card-body .wizard-recommend-option small { font-size: var(--font-small); }
+.wizard-validation-hint { margin: 12px 0; padding: 10px 12px; border-left: 3px solid var(--amber); border-radius: 8px; background: rgba(240,189,120,.1); color: #f0bd78; font-size: var(--font-small); line-height: 1.4; }
+.wizard-input-invalid { border-color: #ff334d !important; box-shadow: 0 0 0 2px rgba(255,51,77,.3), 0 0 14px rgba(255,51,77,.16); }
+.wizard-input-invalid:focus { outline-color: #ff334d; }
+.wizard-input-error { margin: 7px 0 0; color: #ff5267; font-size: var(--font-small); line-height: 1.35; }
+.wizard-privacy-trigger { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; padding: 10px 14px; border: 1px solid rgba(240,189,120,.35); border-radius: 999px; background: rgba(240,189,120,.1); color: #f0bd78; cursor: pointer; font-size: var(--font-small); }
+.wizard-privacy-backdrop { position: fixed; inset: 0; z-index: 130; display: flex; justify-content: flex-end; background: rgba(2,9,15,.58); }
+.wizard-privacy-popup { position: relative; width: min(430px, 100%); min-height: 100%; padding: 38px 28px; border-left: 1px solid rgba(240,189,120,.35); background: linear-gradient(145deg, #172b35, #091721); box-shadow: -18px 0 60px rgba(0,0,0,.4); animation: wizard-slide-in .24s ease-out; }
+.wizard-privacy-close { position: absolute; top: 18px; right: 18px; display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid var(--line); border-radius: 10px; background: rgba(255,255,255,.05); color: var(--text); cursor: pointer; }
+.wizard-privacy-icon { display: grid; width: 48px; height: 48px; margin-bottom: 22px; place-items: center; border-radius: 15px; background: rgba(240,189,120,.14); color: #f0bd78; }
+.wizard-privacy-popup h2 { margin: 0 0 14px; font-size: var(--font-large); }
+.wizard-privacy-popup p { margin: 0 0 26px; color: var(--muted); font-size: var(--font-small); line-height: 1.6; }
+.wizard-privacy-popup .wizard-primary-button { width: 100%; }
+@keyframes wizard-slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+.wizard-card-body .wizard-form-label > span { font-size: var(--font-large); }
+.wizard-card-body .wizard-form-label > small { font-size: var(--font-small); }
+.wizard-card-body .wizard-date-grid label { font-size: var(--font-small); }
+.wizard-card-body .wizard-date-grid input,
+.wizard-card-body .wizard-date-grid select { font-size: var(--font-large); }
+
+.wizard-install-backdrop {
+  position: fixed;
+  z-index: 120;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(2, 9, 15, .76);
+  backdrop-filter: blur(10px);
+}
+
+.wizard-install-dialog {
+  position: relative;
+  width: min(100%, 430px);
+  padding: 30px;
+  border: 1px solid rgba(201, 239, 129, .22);
+  border-radius: 24px;
+  background: linear-gradient(145deg, #122633, #0a1722);
+  box-shadow: 0 24px 90px rgba(0, 0, 0, .52);
+}
+
+.wizard-install-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .04);
+  color: #c8d7ce;
+  cursor: pointer;
+}
+
+.wizard-install-mark {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 20px;
+  place-items: center;
+  border: 1px solid rgba(201, 239, 129, .3);
+  border-radius: 16px;
+  background: rgba(201, 239, 129, .1);
+  color: #c9ef81;
+}
+
+.wizard-install-dialog .wizard-card-kicker {
+  margin: 0 0 10px;
+  color: #b6d785;
+  font: 10px monospace;
+  letter-spacing: .14em;
+}
+
+.wizard-install-dialog h2 {
+  margin: 0;
+  color: #f1f5ec;
+  font-size: clamp(25px, 5vw, 32px);
+  letter-spacing: -.04em;
+  line-height: 1.2;
+}
+
+.wizard-install-copy {
+  margin: 14px 0 18px;
+  color: #b2c2ba;
+  font-size: var(--font-large);
+  line-height: 1.6;
+}
+
+.wizard-install-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, .035);
+  color: #a7b8af;
+  font-size: var(--font-large);
+  line-height: 1.5;
+}
+
+.wizard-install-hint svg {
+  flex: none;
+  color: #c9ef81;
+}
+
+.wizard-install-dialog > .wizard-primary-button {
+  width: 100%;
+  min-height: 48px;
+}
+
+html {
+  min-width: 320px;
+  scroll-padding-top: 88px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.wizard-app,
+.wizard-main,
+.wizard-workspace,
+.wizard-map-column,
+.wizard-side-card {
+  min-width: 0;
+}
+
+@media (max-width: 1120px) and (min-width: 821px) {
+  .wizard-header {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: "brand steps actions";
+    gap: 12px;
+  }
+
+  .wizard-brand {
+    grid-area: brand;
+  }
+
+  .wizard-brand-center {
+    display: none;
+  }
+
+  .wizard-stepper {
+    position: static;
+    grid-area: steps;
+    justify-self: center;
+    gap: clamp(8px, 1vw, 16px);
+    transform: none;
+  }
+
+  .wizard-header-actions {
+    grid-area: actions;
+  }
+
+  .wizard-workspace {
+    grid-template-columns: minmax(0, 1.2fr) minmax(340px, .9fr);
+  }
+
+  .wizard-map-stage {
+    height: clamp(420px, 62svh, 650px);
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 820px) {
+  .wizard-app { font-size: var(--font-large); }
+
+  .wizard-app p,
+  .wizard-app label,
+  .wizard-app button,
+  .wizard-app input,
+  .wizard-app select,
+  .wizard-app textarea { font-size: var(--font-control); }
+
+  .wizard-app small { font-size: var(--font-small); }
+
+  html,
+  body {
+    min-width: 320px;
+  }
+
+  .wizard-header {
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "brand actions" "steps steps";
+    gap: 10px 12px;
+    min-height: 0;
+    padding: 10px max(14px, env(safe-area-inset-right)) 11px max(14px, env(safe-area-inset-left));
+  }
+
+  .wizard-brand {
+    grid-area: brand;
+    min-width: 0;
+  }
+
+  .wizard-brand-center {
+    display: none;
+  }
+
+  .wizard-header-actions {
+    grid-area: actions;
+    gap: 7px;
+    max-width: 55vw;
+  }
+
+  .wizard-location-pill {
+    max-width: 42vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .wizard-stepper {
+    position: static;
+    grid-area: steps;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: clamp(9px, 3vw, 23px);
+    transform: none;
+  }
+
+  .wizard-step {
+    gap: 6px;
+    font-size: var(--font-small);
+  }
+
+  .wizard-step-dot {
+    width: 28px;
+    height: 28px;
+    flex: none;
+    font-size: var(--font-large);
+  }
+
+  .wizard-step i {
+    width: clamp(12px, 4vw, 30px);
+    margin-left: 2px;
+  }
+
+  .wizard-back-button {
+    min-height: 40px;
+    padding: 0 10px;
+    white-space: nowrap;
+  }
+
+  .wizard-install-button {
+    min-height: 40px;
+    padding: 0 11px;
+  }
+
+  .wizard-main {
+    width: 100%;
+    padding: 20px 16px calc(32px + env(safe-area-inset-bottom));
+  }
+
+  .wizard-page-intro {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 13px;
+    margin-bottom: 16px;
+  }
+
+  .wizard-page-intro h1 {
+    font-size: clamp(27px, 6.3vw, 36px);
+    letter-spacing: -1.1px;
+    line-height: 1.12;
+  }
+
+  .wizard-page-intro > div:first-child > p:last-child {
+    max-width: 58ch;
+    font-size: var(--font-small);
+  }
+
+  .wizard-region-badge {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    padding: 11px 13px;
+  }
+
+  .wizard-region-badge small {
+    font-size: var(--font-small);
+  }
+
+  .wizard-region-badge strong {
+    font-size: var(--font-large);
+  }
+
+  .wizard-workspace {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Put the controls and the primary action first in the mobile reading order. */
+  .wizard-map-column {
+    display: contents;
+  }
+
+  .wizard-side-card {
+    position: relative;
+    order: 1;
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+    margin: 0;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+  }
+
+  .wizard-load-row {
+    order: 2;
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .wizard-load-row .wizard-primary-button {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .wizard-map-card {
+    order: 3;
+    width: 100%;
+    border-radius: 18px;
+  }
+
+  .wizard-bottom-context,
+  .wizard-privacy-note,
+  .wizard-map-hint,
+  .wizard-step-footer {
+    order: 4;
+    width: 100%;
+  }
+
+  .wizard-map-toolbar {
+    min-height: 64px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 11px 12px;
+  }
+
+  .wizard-map-heading {
+    flex: 1 1 180px;
+  }
+
+  .wizard-map-heading strong {
+    font-size: var(--font-small);
+  }
+
+  .wizard-map-heading small {
+    max-width: 54vw;
+    font-size: var(--font-large);
+  }
+
+  .wizard-map-tools {
+    max-width: 100%;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .wizard-map-tools button {
+    min-width: 44px;
+    min-height: 42px;
+    padding: 7px 8px;
+  }
+
+  .wizard-map-tools button small {
+    font-size: var(--font-large);
+  }
+
+  .wizard-map-stage {
+    height: clamp(250px, 42svh, 430px);
+    min-height: 250px;
+    max-height: none;
+  }
+
+  .wizard-map-top-hud {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+  }
+
+  .wizard-map-top-hud > span {
+    gap: 6px;
+    padding: 7px 8px;
+    font-size: var(--font-small);
+    letter-spacing: .06em;
+  }
+
+  .wizard-map-empty {
+    width: min(330px, calc(100% - 36px));
+    gap: 10px;
+    padding: 18px;
+  }
+
+  .wizard-map-empty strong {
+    font-size: var(--font-large);
+  }
+
+  .wizard-map-empty p {
+    font-size: var(--font-large);
+  }
+
+  .wizard-map-measure {
+    right: 10px;
+    bottom: 12px;
+    left: 10px;
+    width: auto;
+    max-width: none;
+    justify-content: flex-start;
+    gap: clamp(8px, 3vw, 16px);
+    padding: 10px 11px;
+  }
+
+  .wizard-map-measure small {
+    font-size: var(--font-small);
+  }
+
+  .wizard-map-measure strong {
+    font-size: 19px;
+  }
+
+  .wizard-map-measure > span > i {
+    font-size: var(--font-large);
+  }
+
+  .wizard-map-measure .wizard-coordinate {
+    font-size: clamp(9px, 2.6vw, 11px);
+  }
+
+  .wizard-map-instruction {
+    bottom: 82px;
+    left: 10px;
+    max-width: calc(100% - 20px);
+    font-size: var(--font-small);
+  }
+
+  .wizard-map-status {
+    align-items: flex-start;
+    gap: 8px;
+    padding: 11px 12px;
+  }
+
+  .wizard-map-status > span,
+  .wizard-map-status small {
+    font-size: var(--font-large);
+    line-height: 1.45;
+  }
+
+  .wizard-card-body {
+    padding: clamp(17px, 5vw, 23px);
+  }
+
+  .wizard-card-kicker,
+  .wizard-form-label small,
+  .wizard-form-block > label > span {
+    font-size: var(--font-large);
+  }
+
+  .wizard-card-body h1 {
+    font-size: clamp(24px, 6vw, 31px);
+    line-height: 1.2;
+  }
+
+  .wizard-card-intro,
+  .wizard-form-label > span,
+  .wizard-recommend-option strong {
+    font-size: var(--font-small);
+    line-height: 1.45;
+  }
+
+  .wizard-form-block {
+    margin-top: 19px;
+    padding-top: 16px;
+  }
+
+  .wizard-form-block input,
+  .wizard-form-block select,
+  .wizard-form-block textarea {
+    min-height: 46px;
+    font-size: var(--font-large);
+  }
+
+  .wizard-form-block textarea {
+    min-height: 82px;
+  }
+
+  .wizard-autocomplete > button {
+    width: 46px;
+    min-height: 46px;
+  }
+
+  .wizard-crop-suggestions {
+    z-index: 20;
+    top: calc(100% + 4px);
+    max-height: min(48svh, 360px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .wizard-crop-suggestions button {
+    min-height: 46px;
+    font-size: var(--font-small);
+  }
+
+  .wizard-crop-suggestions small,
+  .wizard-crop-empty {
+    font-size: var(--font-small);
+  }
+
+  .wizard-selected-crops button,
+  .wizard-segmented button,
+  .wizard-priority-grid button {
+    min-height: 44px;
+    font-size: var(--font-large);
+  }
+
+  .wizard-recommend-option {
+    min-height: 64px;
+    padding: 12px;
+  }
+
+  .wizard-recommend-option small {
+    font-size: var(--font-small);
+    line-height: 1.4;
+  }
+
+  .wizard-date-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .wizard-date-grid label {
+    min-width: 0;
+    font-size: var(--font-large);
+  }
+
+  .wizard-priority-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .wizard-field-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wizard-primary-button,
+  .wizard-step-footer button {
+    min-height: 46px;
+  }
+
+  .wizard-demo-note,
+  .wizard-form-error,
+  .wizard-inline-error {
+    font-size: var(--font-small);
+    line-height: 1.5;
+  }
+
+  .wizard-results-card {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .wizard-result-heading {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .wizard-example-tag {
+    width: max-content;
+    margin: 0;
+  }
+
+  .wizard-variable-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .wizard-variable {
+    min-width: 0;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .wizard-variable > span {
+    width: 30px;
+    height: 30px;
+    flex: none;
+  }
+
+  .wizard-variable small,
+  .wizard-variable em {
+    font-size: var(--font-large);
+    line-height: 1.4;
+  }
+
+  .wizard-variable strong {
+    font-size: var(--font-small);
+    line-height: 1.4;
+  }
+
+  .wizard-recommendations p,
+  .wizard-unknowns ul,
+  .wizard-unknowns p,
+  .wizard-data-footer {
+    font-size: var(--font-small);
+    line-height: 1.5;
+  }
+
+  .wizard-crop-result-top > strong,
+  .wizard-confidence {
+    font-size: var(--font-large);
+  }
+
+  .wizard-chat-panel {
+    width: min(360px, calc(100vw - 24px));
+    height: min(480px, 62svh);
+  }
+
+  .wizard-chat {
+    right: 10px;
+    bottom: 60px;
+  }
+
+  .wizard-chat-bubble {
+    min-height: 48px;
+  }
+
+  .wizard-chat-bubble-copy small {
+    font-size: var(--font-small);
+  }
+
+  .wizard-chat-bubble-copy strong {
+    font-size: var(--font-large);
+  }
+
+  .wizard-map-attribution {
+    right: 8px;
+    bottom: 7px;
+    font-size: var(--font-small);
+  }
+
+  .wizard-geocode-results {
+    right: 0;
+    left: 0;
+    max-height: 45svh;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .wizard-app { font-size: var(--font-large); }
+
+  .wizard-app p,
+  .wizard-app label,
+  .wizard-app button,
+  .wizard-app input,
+  .wizard-app select,
+  .wizard-app textarea { font-size: var(--font-control); }
+
+  .wizard-app small { font-size: var(--font-small); }
+
+  .wizard-main {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .wizard-brand > span {
+    width: 32px;
+    height: 32px;
+  }
+
+  .wizard-brand strong {
+    font-size: var(--font-large);
+  }
+
+  .wizard-location-pill {
+    max-width: 40vw;
+    padding: 8px 9px;
+    font-size: var(--font-small);
+  }
+
+  .wizard-install-button {
+    width: 40px;
+    min-width: 40px;
+    padding: 0;
+  }
+
+  .wizard-install-button span {
+    display: none;
+  }
+
+  .wizard-stepper {
+    justify-content: space-between;
+    gap: 5px;
+  }
+
+  .wizard-step {
+    gap: 4px;
+    font-size: var(--font-large);
+  }
+
+  .wizard-step-dot {
+    width: 25px;
+    height: 25px;
+  }
+
+  .wizard-step i {
+    width: clamp(8px, 3vw, 15px);
+  }
+
+  .wizard-page-intro h1 {
+    font-size: clamp(26px, 7.1vw, 32px);
+  }
+
+  .wizard-map-toolbar {
+    align-items: flex-start;
+  }
+
+  .wizard-map-tools {
+    justify-content: flex-end;
+  }
+
+  .wizard-map-measure {
+    gap: 8px;
+    padding: 9px;
+  }
+
+  .wizard-map-measure small {
+    font-size: var(--font-small);
+  }
+
+  .wizard-map-measure strong {
+    font-size: var(--font-small);
+  }
+
+  .wizard-map-measure > span > i {
+    font-size: var(--font-small);
+  }
+
+  .wizard-map-measure .wizard-coordinate {
+    font-size: var(--font-small);
+  }
+
+  .wizard-date-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wizard-variable-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 360px) {
+  .wizard-step > span:not(.wizard-step-dot) {
+    display: none;
+  }
+
+  .wizard-step.is-current > span:not(.wizard-step-dot) {
+    display: inline;
+  }
+
+  .wizard-step i {
+    width: 18px;
+  }
+
+  .wizard-map-heading small {
+    max-width: 45vw;
+  }
+
+  .wizard-map-tools button small {
+    display: none;
+  }
+}
+
+@media (orientation: landscape) and (max-width: 900px) {
+  .wizard-map-stage {
+    height: 56svh;
+    min-height: 220px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .wizard-map-tools button,
+  .wizard-step-footer button,
+  .wizard-primary-button,
+  .wizard-install-button,
+  .wizard-autocomplete > button,
+  .wizard-segmented button,
+  .wizard-priority-grid button,
+  .wizard-selected-crops button {
+    min-height: 44px;
+  }
+}
+
+/* Theme typography wins over component and responsive overrides. */
+.wizard-card-body h1,
+.wizard-card-body h2,
+.wizard-card-body h3,
+.wizard-card-body p,
+.wizard-card-body strong,
+.wizard-card-body button,
+.wizard-card-body input,
+.wizard-card-body select,
+.wizard-card-body textarea,
+.wizard-card-body label,
+.wizard-card-body .wizard-form-label > span,
+.wizard-card-body .wizard-date-grid label,
+.wizard-card-body .wizard-priority-grid button,
+.wizard-card-body .wizard-recommend-option strong {
+  font-size: var(--font-large) !important;
+}
+
+.wizard-card-body small,
+.wizard-card-body em,
+.wizard-card-body .wizard-card-kicker,
+.wizard-card-body .wizard-form-label > small,
+.wizard-card-body .wizard-recommend-option small,
+.wizard-card-body .wizard-demo-note {
+  font-size: var(--font-small) !important;
+}
